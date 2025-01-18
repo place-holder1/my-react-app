@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head></<!doctype html>
+	<html lang="en">
+	  <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>JavaScript Practice</title>
+	  </head>
+	  <body>
+		<h1>JavaScript Practice</h1>
+		<button id="myButton">Color Generator</button>
+		 <div>
+		  <ul id="list">
+		  </ul>
+		  <button id="deleteAll">Delete All</button>
+		  <button id="deleteOne">Delete One Item</button>
+		 </div>
+		 <script>
+			const list = document.getElementById("list");
+			const numbers = [1, 2, 3, 4, 5];
+
+			numbers.forEach((num) => {
+				const newItem = document.createElement("li");
+				newItem.textContent = `Item ${num}`;
+				list.appendChild(newItem);
+			});
+
+			const getRandomColor = () => {
+				const a = Math.floor(Math.random() * 256);
+				const b = Math.floor(Math.random() * 256);
+				const c = Math.floor(Math.random() * 256);
+				return `rgb(${a}, ${b}, ${c})`;
+			};
+
+			const myButton = document.getElementById("myButton");
+			myButton.onclick = () => {
+				console.log("Button clicked!");
+				const newItem = document.createElement("li");
+				newItem.textContent = "New Item";
+				newItem.style.backgroundColor = getRandomColor();
+				list.appendChild(newItem);
+			};
+
+			const deleteAllButton = document.getElementById("deleteAll");
+			deleteAllButton.onclick = () => {
+				list.innerHTML = "";
+				console.log("All items deleted!");
+			};
+
+			const deleteOneButton = document.getElementById("deleteOne");
+			deleteOneButton.onclick = () => {
+				if (list.firstChild) {
+				list.removeChild(list.firstChild);
+				console.log("One item deleted!");
+				} else {
+				console.log("No items to delete!");
+				}
+			};
+		 </script>
+	  </body>
+	</html>
