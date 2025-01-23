@@ -6,10 +6,19 @@ import About from './components/About';
 import Navbar from './components/Navbar';
 import Card1 from './components/Card1';
 import Card2 from './components/Card2';
+import Card from './components/Card';
+import warm from "./assets/warm.png"
 
-function App() {
+const App = () => {
   const [count, setCount] = useState(0)
-
+  const profiles =[
+    {
+      img:warm,
+      name: 'John Doe',
+      title: 'Software Engineer',
+      email: 'a@a.com'
+    }
+  ]
   return (
     <>
     <header>
@@ -29,8 +38,8 @@ function App() {
       <div className="section">
         <div className="container">
           <div className="profile-cards">
-            <Card1 />
-            <Card2 />
+            {profiles.map(profile =>  <Card img={profile.img} name={profile.name} title={profile.title} email={profile.email} />)}
+              
           </div>
         </div>
       </div>
