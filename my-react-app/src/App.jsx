@@ -4,16 +4,16 @@ import viteLogo from '/vite.svg'
 import './App.css';
 import About from './components/About';
 import Navbar from './components/Navbar';
-import Card1 from './components/Card1';
-import Card2 from './components/Card2';
 import Card from './components/Card';
-import warm from "./assets/warm.png"
+import warm from "./assets/warm.png";
+import Wrapper from './components/Wrapper'
+
 
 const App = () => {
   const [count, setCount] = useState(0)
   const profiles =[
     {
-      img:warm,
+      img: warm,
       name: 'John Doe',
       title: 'Software Engineer',
       email: 'a@a.com'
@@ -25,24 +25,17 @@ const App = () => {
       <Navbar />
     </header>
     <main>
-      <div className="section">
-        <div className="container">
+      <Wrapper>
           <h1>Profile App</h1>
-        </div>
-      </div>
-      <div className="section">
-        <div className="container">
+        </Wrapper>
+      <Wrapper>
           <About />
-        </div>
-      </div>
-      <div className="section">
-        <div className="container">
+        </Wrapper>
+      <Wrapper>
           <div className="profile-cards">
             {profiles.map(profile =>  <Card img={profile.img} name={profile.name} title={profile.title} email={profile.email} />)}
-              
           </div>
-        </div>
-      </div>
+        </Wrapper>
     </main>
       <div>
         <a href="https://vite.dev" target="_blank">
