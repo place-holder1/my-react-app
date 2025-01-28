@@ -6,19 +6,22 @@ import About from './components/About';
 import Navbar from './components/Navbar';
 import Card from './components/Card';
 import warm from "./assets/warm.png";
-import Wrapper from './components/Wrapper'
+import Wrapper from './components/Wrapper';
 
 
 const App = () => {
-  const [count, setCount] = useState(0)
   const profiles =[
     {
       img: warm,
       name: 'John Doe',
       title: 'Software Engineer',
-      email: 'a@a.com'
+      email: 'a@a.com',
     }
-  ]
+  ];
+  const [count, setCount] = useState(0)
+  const handleClick = ( ) => {
+    console.log("Button clicked");
+  };
   return (
     <>
     <header>
@@ -27,13 +30,16 @@ const App = () => {
     <main>
       <Wrapper>
           <h1>Profile App</h1>
+          <button onClick={handleClick}></button>
         </Wrapper>
       <Wrapper>
           <About />
-        </Wrapper>
+       </Wrapper>
       <Wrapper>
           <div className="profile-cards">
-            {profiles.map(profile =>  <Card img={profile.img} name={profile.name} title={profile.title} email={profile.email} />)}
+            {profiles.map((profile) => (
+              <Card key = {profile.email} {...profile} />
+          ))}
           </div>
         </Wrapper>
     </main>
