@@ -1,8 +1,9 @@
 import '../styles/navbar.css'
+import styles from '../styles/card.module.css'
 
 const Navbar = () => {
     return (
-        <nav className="navbar">
+        <nav className={`${styles["navbar"]} section`}>
             <ul>
                 <li>
                     <a href="#">Home</a>

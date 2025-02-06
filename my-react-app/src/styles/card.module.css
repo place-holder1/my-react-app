@@ -1,0 +1,38 @@
+.container {
+    display: block;
+}
+
+@keyframes cardEnter {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.profile-cards {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.profile-card {
+    display: block;
+    &.is-entering{
+     opacity: 0;
+     transform: scale(0.9);
+     animation: cardEnter 0.5s forwards;
+    }
+}
+
+img {
+    width: 200px;
+    height: auto;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+  }
+  

@@ -42,6 +42,13 @@ const App = () => {
       email: 'l@a.com',
     }
   ];
+  //variable to store the animation state
+  const [animation, setAnimation] = useState(false);
+  //function to update the animation state
+  const handleAnimation = () => {
+     setAnimation(false);
+   } 
+
   //get titles
   const titles = [...new Set(profiles.map((profile) => profile.title))];
 
@@ -56,16 +63,19 @@ const App = () => {
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
     console.log(event.target.value);
+    setAnimation(true)
   };
 
   const [search, setSearch] = useState("");
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
+    setAnimation(true)
   }
 
   const handleClear = () => {
     setTitle("");
     setSearch("");
+    setAnimation(true);
     console.log(setSearch());
   }
 
@@ -78,6 +88,43 @@ const App = () => {
     // }
     (title === "" || profile.title === title && profile.name.toLowerCase().includes(search.toLowerCase()))
   )
+
+  const buttonStyle = {
+
+  }
+
+  const promise = new Promise((resolve, reject) => {
+    // async operation
+    if (/* success condition */) {
+    resolve('Success!');
+    } else {
+    reject('Failure!');
+    }
+    });
+    promise.then(result => {
+    console.log(result); // success
+    }).catch(error => {
+    console.log(error); // failure
+    }).finally(() => {
+    console.log("Cleanup: This will always run, no matter what.");
+    });
+
+  const fetchData = async() => {
+    try {
+    const response = await fetch('https://api.example.com/data');
+    // Check if the request was successful
+    if (!response.ok) {
+    throw new Error('Network response was not ok');
+    }
+    const data = await response.json(); // Wait for JSON parsing
+    console.log(data); // Handle the fetched data
+    } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    } finally {
+    doSomething();
+    }}
+    fetchData();
+
   return (
     <>
     <header>
@@ -108,11 +155,11 @@ const App = () => {
               onChange={handleSearchChange}
               />
             </div>
-            <button onClick={handleClear}>Clear</button>
+            <button onClick={handleClear} style={buttonStyle}>Clear</button>
           </div>
           <div className="profile-cards">
             {/* {profiles.map((profile) => ( */}
-            {filteredProfiles.map((profile) => (<Card key={profile.email} {...profile} />))}
+            {filteredProfiles.map((profile) => (<Card key={profile.email} {...profile} animate={animation} updateAnimate={handleAnimation}/>))}
           </div>
         </Wrapper>
     </main>
