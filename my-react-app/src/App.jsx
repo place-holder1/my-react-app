@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Card from './components/Card';
 import warm from "./assets/warm.png";
 import Wrapper from './components/Wrapper';
+import ProfileForm from "./ProfileForm";
 
 
 const App = () => {
@@ -95,7 +96,7 @@ const App = () => {
 
   const promise = new Promise((resolve, reject) => {
     // async operation
-    if (/* success condition */) {
+    if (promise) {
     resolve('Success!');
     } else {
     reject('Failure!');
@@ -137,6 +138,9 @@ const App = () => {
         </Wrapper>
       <Wrapper>
           <About />
+       </Wrapper>
+       <Wrapper>
+        <ProfileForm />
        </Wrapper>
       <Wrapper>
         <div className="filter-wrapper">
