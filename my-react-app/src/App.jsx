@@ -5,44 +5,31 @@ import './App.css';
 import About from './components/About';
 import Navbar from './components/Navbar';
 import Card from './components/Card';
-import warm from "./assets/warm.png";
+//import warm from "./assets/warm.png";
 import Wrapper from './components/Wrapper';
-import ProfileForm from "./ProfileForm";
+import ProfileForm from "./components/ProfileForm";
+import { useEffect } from 'react';
 
 
 const App = () => {
-  const profiles =[
-    {
-      img: warm,
-      name: 'John Doe',
-      title: 'Software Engineer',
-      email: 'a@a.com',
-    },
-    {
-      img: warm,
-      name: 'John Woe',
-      title: 'Software Developer',
-      email: 'c@a.com',
-    },
-    {
-      img: warm,
-      name: 'John Croe',
-      title: 'Software Bugger',
-      email: 'f@a.com',
-    },
-    {
-      img: warm,
-      name: 'John Yoe',
-      title: 'Software Weaponizer',
-      email: 'j@a.com',
-    },
-    {
-      img: warm,
-      name: 'John Toe',
-      title: 'Software Developer',
-      email: 'l@a.com',
-    }
-  ];
+  // const profiles =[
+  //   useEffect(() => {
+  //     fetch("https://jsonplaceholder.typicode.com/posts")
+  //         .then((res) => res.json())
+  //         .then((data) => (console.log("Fetching...");
+  //             setText(data[0].title);
+  //   })
+  // ];
+  const [profiles, setProfiles] = useState([]);
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+        .then((res) => res.json())
+        .then((data) => {
+          setProfiles(data);
+          console.log(data)
+          //setText(data[0].title);
+    })
+  }, []);
   //variable to store the animation state
   const [animation, setAnimation] = useState(false);
   //function to update the animation state
@@ -52,7 +39,6 @@ const App = () => {
 
   //get titles
   const titles = [...new Set(profiles.map((profile) => profile.title))];
-
 
   const [count, setCount] = useState(0)
   const handleClick = ( ) => {
