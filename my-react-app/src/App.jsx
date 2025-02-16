@@ -20,9 +20,9 @@ const App = () => {
   //             setText(data[0].title);
   //   })
   // ];
-  const [profiles, setProfiles] = useState([]);
+
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
+    fetch("https://web.ics.purdue.edu/~zong6/profile-app/fetch-data-with-filter.php")
         .then((res) => res.json())
         .then((data) => {
           setProfiles(data);
@@ -38,12 +38,17 @@ const App = () => {
    } 
 
   //get titles
-  const titles = [...new Set(profiles.map((profile) => profile.title))];
+ // const titles = [...new Set(profiles.map((profile) => profile.title))];
 
-  const [count, setCount] = useState(0)
   const handleClick = ( ) => {
     console.log("Button clicked");
   };
+
+  const [profiles, setProfiles] = useState([]);
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(1);
+
+  const [titles, setTitles] = useState([]);
 
   const [title, setTitle] = useState("");
   //update the title on change of the dropdown
@@ -59,9 +64,23 @@ const App = () => {
     setAnimation(true)
   }
 
+  useEffect(() => {
+    const api = `https://web.ics.purdue.edu/~zong6/profile-app/fetch-data-with-filter.php?${title}&name=${search}&page=${page}`;
+    //I don't have my own web.ics yet
+    fetch(api)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+      setTitles(data.Titles)
+      setCount(data.count);
+      setPage(page);
+    })
+  }, [title, search, page]);
+
   const handleClear = () => {
     setTitle("");
     setSearch("");
+    setPage(1);
     setAnimation(true);
     console.log(setSearch());
   }
@@ -108,7 +127,7 @@ const App = () => {
     } catch (error) {
     console.error('There was a problem with the fetch operation:', error);
     } finally {
-    doSomething();
+    //doSomething();
     }}
     fetchData();
 
@@ -133,7 +152,8 @@ const App = () => {
           <div className="filter--select">
             <label htmlFor="title-select">Select a title:</label>
             <select id="title-select" onChange={handleTitleChange}>
-              {titles.map((title) => (<option key={title} value={title}>{title}</option>))}
+              {titles.map((title) => 
+                (<option key={title} value={title}>{title}</option>))}
               {/* <option value="">All</option>
               <option value="Software Engineer">Software Engineer</option>
               <option value="Software Developer">Software Developer</option>
@@ -151,6 +171,22 @@ const App = () => {
             {/* {profiles.map((profile) => ( */}
             {filteredProfiles.map((profile) => (<Card key={profile.email} {...profile} animate={animation} updateAnimate={handleAnimation}/>))}
           </div>
+          {
+            count === 0 && <p>No profiles found!</p> 
+          }
+          {count > 10 && 
+          <div className="pagination">
+            <button onClick={() => setPage(page - 1)} disabled={page === 1}>
+              <span className="sr-only">Previous</span>
+              <FontAwesomeIcon icon={faChevronLeft}/>
+            </button>
+            <span>{page}/{Math.ceil(count/10)}</span>
+            <button onClick={() => setPage(page + 1)} disabled={page>=Math.ceil(count/10)}>
+              <span className="sr-only">Next</span>
+              <FontAwesomeIcon icon={faChevronRight}/>
+            </button>
+          </div>
+          }
         </Wrapper>
     </main>
       <div>
