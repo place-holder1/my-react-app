@@ -1,7 +1,10 @@
 const About = () => {
     return (
-        <h1>Hi</h1>
+      <div>
+        <h1>About</h1>
+        <p>This is a simple profile app.</p>
+      </div>
     );
-}
-
-export default About
+  }
+  
+  export default About;
