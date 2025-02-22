@@ -8,6 +8,9 @@ import Homepage from './pages/HomePage';
 import AddProfile from './pages/AddProfile';
 import AboutPage from './pages/AboutPage';
 import NotFound from './pages/NotFound';
+import ProfileDetailPage from './pages/ProfileDetailPage';
+//import ProfileLayoutPage from './pages/ProfileLayoutPage';
+
 
 const App = () => {
   const [mode, setMode ] = useState("light");
@@ -25,6 +28,10 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Homepage/>} />
         <Route path="/add-profile" element={<AddProfile/>} />
+        <Route path="/profile/:id" element={<ProfileDetailPage/>}>
+          <Route index element={<ProfileDetailPage/>} />
+          <Route path="edit" element={<ProfileDetailPage/>} />
+        </Route>
         <Route path="/about" element={<AboutPage/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>

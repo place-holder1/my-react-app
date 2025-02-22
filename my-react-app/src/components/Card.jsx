@@ -2,7 +2,7 @@
 import style from '../styles/card.module.css';
 import PropTypes from "prop-types";
 
-const Card = ({ img, name, title, email, animate, updateAnimate }) => {
+const Card = ({ img, name, title, animate, updateAnimate }) => {
     return (
       <div
         className={`${style["profile-card"]} ${
@@ -17,7 +17,7 @@ const Card = ({ img, name, title, email, animate, updateAnimate }) => {
           <p>{name}</p>
           <p>{title}</p>
           <p>
-            <a href={`mailto:${email}`}>{email}</a>
+            {/* <a href={`mailto:${email}`}>{email}</a> */}
           </p>
         </div>
       </div>

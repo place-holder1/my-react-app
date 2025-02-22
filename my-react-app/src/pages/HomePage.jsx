@@ -9,6 +9,7 @@ import { useState } from "react";
 // } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import styles from "../styles/home.module.css";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const [titles, setTitles] = useState([]);
@@ -90,6 +91,7 @@ const HomePage = () => {
       </div>
       <div className={styles["profile-cards"]}>
         {profiles.map((profile) => (
+          <Link to={`/profile/`}
           <Card key={profile.id} {...profile} />
         ))}
       </div>
