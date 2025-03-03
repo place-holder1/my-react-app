@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import './App.css';
 // import About from './components/About';
 import Navbar from './components/Navbar';
@@ -9,20 +9,19 @@ import AddProfile from './pages/AddProfile';
 import AboutPage from './pages/AboutPage';
 import NotFound from './pages/NotFound';
 import ProfileDetailPage from './pages/ProfileDetailPage';
+import { ModeProvider, ModeContext } from './contexts/ModeContext';
+import { useContext } from 'react'
 //import ProfileLayoutPage from './pages/ProfileLayoutPage';
 
 
 const App = () => {
-  const [mode, setMode ] = useState("light");
-
-  const handleModeChange = () => {
-    setMode(mode === "light" ? "dark" : "light");
-  };
+  const { mode } = useContext(ModeContext);
 
   return (
+    <ModeProvider>
     <HashRouter>
       <header>
-        <Navbar mode={mode} updateMode={handleModeChange}/>
+        <Navbar />
       </header>
       <main className={mode === "light" ? " light" : "dark"}>
       <Routes>
@@ -37,6 +36,7 @@ const App = () => {
       </Routes>
       </main>
     </HashRouter>
+    </ModeProvider>
   );
 };
 
