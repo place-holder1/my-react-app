@@ -1,11 +1,13 @@
 import styles from "../styles/navbar.module.css";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext"
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import { ModeContext } from "../contexts/ModeContext";
 
 const Navbar = () => {
-  const { mode, toggleMode } = useContext(ModeContext);
+  const { mode, toggleMode } = useMode();
+  const { isLogin, handleOutput}
 
   return (
     <nav className={`${styles["navbar"]}`}>
