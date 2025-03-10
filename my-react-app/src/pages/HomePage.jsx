@@ -1,23 +1,22 @@
 import Card from "../components/Card";
 import Wrapper from "../components/Wrapper";
-import { useState } from "react";
-import { useEffect, useReducer } from "react";
+// import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faXmark,
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+// import { useEffect, useReducer } from "react";
 import styles from "../styles/home.module.css";
 import { Link } from "react-router-dom";
-import { initialState, homeReducer } from "../reducers/homeReducer";
+// import { initialState, homeReducer } from "../reducers/homeReducer";
+import useHomePage from "../hooks/homePageHook";
 
 const HomePage = () => {
-  const [state, dispatch] = useReducer(homeReducer, initialState);
+  const {state, dispatch} = useHomePage();
+  // const [state, dispatch] = useReducer(homeReducer, initialState);
   const { titles, title, search, profiles, page, count } = state;
-
-  // get titles
-  useEffect(() => {
-    fetch("https://web.ics.purdue.edu/~zong6/profile-app/get-titles.php")
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({ type: "SET_TITLES", payload: data.titles });
-      });
-  }, []);
 
   //update the title on change of the drowndrop
   const handleTitleChange = (event) => {
@@ -28,16 +27,6 @@ const HomePage = () => {
   const handleSearchChange = (event) => {
     dispatch({ type: "SET_SEARCH", payload: event.target.value });
   };
-  //fetch the data from the server
-  useEffect(() => {
-    fetch(
-      `https://web.ics.purdue.edu/~zong6/profile-app/fetch-data-with-filter.php?title=${title}&name=${search}&page=${page}&limit=10`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({ type: "FETCH_DATA", payload: data });
-      });
-  }, [title, search, page]);
   //clear the title and search
   const handleClear = () => {
     dispatch({ type: "CLEAR_FILTER" });
@@ -73,6 +62,7 @@ const HomePage = () => {
         </div>
         <button onClick={handleClear} style={buttonStyle}>
           <span className="sr-only">Reset</span>
+          <FontAwesomeIcon icon={faXmark} />
         </button>
       </div>
       <div className={styles["profile-cards"]}>
@@ -90,6 +80,7 @@ const HomePage = () => {
             disabled={page === 1}
           >
             <span className="sr-only">Previous</span>
+            <FontAwesomeIcon icon={faChevronLeft} />
           </button>
           <span>
             {page}/{Math.ceil(count / 10)}
@@ -99,6 +90,7 @@ const HomePage = () => {
             disabled={page >= Math.ceil(count / 10)}
           >
             <span className="sr-only">Next</span>
+            <FontAwesomeIcon icon={faChevronRight} />
           </button>
         </div>
       )}
