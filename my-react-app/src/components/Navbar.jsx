@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext"
 import PropTypes from "prop-types";
 import { useContext } from "react";
-import { ModeContext } from "../contexts/ModeContext";
+import { useSelector, useDispatch } from "react-redux";
+import { toggle } from "../redux/slices/modeSlice.js"
+
 
 const Navbar = () => {
   const { mode, toggleMode } = useMode();
-  const { isLogin, handleOutput}
+  const { isLogin, handleOutput};
 
   return (
     <nav className={`${styles["navbar"]}`}>
