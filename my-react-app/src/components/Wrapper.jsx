@@ -1,15 +1,13 @@
-import PropTypes from "prop-types"
+// import { useContext } from "react";
+// import AuthContext from "../contexts/AuthContext";
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
-const Wrapper = ({ children }) => {
-    return (
-      <div className="section">
-        <div className="container">{children}</div>
-      </div>
-    );
-  };
-
-Wrapper.propTypes = {
-    children: PropTypes.function
+const ProtectedRoute = ({ children }) => {
+    // const { isLogin } = useContext(AuthContext);
+    const isLogin = useSelector((state) => state.auth.isLogin);
+    return isLogin ? children : <Navigate to="/login" />;
 }
 
-export default Wrapper;
+export default ProtectedRoute;
